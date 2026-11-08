@@ -85,7 +85,7 @@
 
 {#- Append form group attributes onto attributes set above #}
 {%- for name, value in params.formGroup.attributes ?? [] %}
-  {%- set attributesHtml = "#{attributesHtml} #{name}=\"#{value}\"" %}
+  {%- set attributesHtml = "#{attributesHtml} #{name | e}=\"#{value | e}\"" %}
 {%- endfor -%}
 
 {{ govukTextarea({

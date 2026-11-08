@@ -76,10 +76,10 @@
 
       {#- Output ` name` only (no value) for boolean attributes -#}
       {%- if options.optional is same as (true) and options.value is same as (true) %}
-        {%- set attributesHtml = "#{attributesHtml} #{name}" %}
+        {%- set attributesHtml = "#{attributesHtml} #{name | e}" %}
       {#- Skip optional empty attributes or output ` name="value"` pair by default -#}
       {%- elseif (options.optional is same as (true) and not options.value is same as (null, false)) or options.optional | default(false) is not same as (true) %}
-        {%- set attributesHtml = "#{attributesHtml} #{name}=\"#{options.value is same as(true) or value is same as(false) ? (options.value ? 'true' : 'false') : options.value}\"" %}
+        {%- set attributesHtml = "#{attributesHtml} #{name | e}=\"#{(options.value is same as(true) or value is same as(false) ? (options.value ? 'true' : 'false') : options.value) | e}\"" %}
       {%- endif %}
     {%- endfor %}
   {%- endif -%}
