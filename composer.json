@@ -1,5 +1,5 @@
 {
-  "name": "joshualicense/govuk-frontend-twig",
+  "name": "dvsa/govuk-frontend-twig",
   "description": "GOV.UK Frontend Nunjucks templates converted to Twig",
   "license": "MIT",
   "autoload": {
