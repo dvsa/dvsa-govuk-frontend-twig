@@ -119,6 +119,20 @@ const attributeEscapingFixtures = [
       },
     },
   },
+  {
+    name: "form group attributes containing special characters",
+    component: "password-input",
+    options: {
+      name: "password",
+      label: { text: "Password" },
+      formGroup: {
+        attributes: {
+          "data-test": '"><script>alert(1)</script>',
+          'data-x"onmouseover="alert(1)': "value",
+        },
+      },
+    },
+  },
 ];
 
 describe("attribute escaping", () => {
@@ -132,4 +146,35 @@ describe("attribute escaping", () => {
       expect(twig).not.toContain("<script>");
     },
   );
+});
+
+// Options the upstream fixtures don't exercise.
+const extraFixtures = [
+  {
+    name: "form group attributes",
+    component: "password-input",
+    options: {
+      name: "password",
+      label: { text: "Password" },
+      formGroup: { attributes: { "data-test": "value" } },
+    },
+  },
+  {
+    name: "form group afterInput html",
+    component: "password-input",
+    options: {
+      name: "password",
+      label: { text: "Password" },
+      formGroup: { afterInput: { html: "  <b>After</b> input  " } },
+    },
+  },
+];
+
+describe("extra fixtures", () => {
+  it.each(extraFixtures)("$component: $name", ({ component, options }) => {
+    const njk = renderNunjucksComponent(component, options);
+    const twig = renderTwigComponent(component, options);
+
+    expect(twig).toEqual(njk);
+  });
 });
